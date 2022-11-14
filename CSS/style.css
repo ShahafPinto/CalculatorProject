@@ -1,0 +1,72 @@
+/* mobile first */
+body{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "main"
+                         "scientific"
+                         "history";
+    
+}
+.dark main{
+    background: rgb(54, 73, 77);
+}
+.dark .num{
+    background: rgb(68, 92, 96);
+}
+.dark .threecolumns{
+    background: rgb(38, 34, 102);
+}
+.dark section:hover{
+    background: rgb(116, 130, 142);
+}
+
+
+main{
+    grid-area: main;
+    background: rgb(175, 232, 241);
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(7,0.5fr);
+    /* gap: 2px; */
+    /* align-items: center; */
+    /* text-align: center; */
+    border-color: black;
+    border-style: solid;
+}
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: black;
+    border-style: solid;
+    padding: 5px;
+    font-size: larger;
+}
+.num{
+    background: rgb(103, 215, 232);
+    /* font-size: larger; */
+}
+section:hover{
+    background: rgb(121, 180, 229);
+}
+.img>img{
+    width: 90%;
+    height: 90%;
+    /* align-content: center; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* width: 8%; */
+}
+.threecolumns{
+    grid-column: 2/5;
+    background: rgb(20, 164, 169);
+}
+.scientific{
+    grid-area: scientific;
+    background: green;
+}
+.history{
+    grid-area: history;
+    background: gray;
+}
