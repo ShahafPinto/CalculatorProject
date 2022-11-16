@@ -1,13 +1,11 @@
 /* for mobile */
 body{
     display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: "main"
-                         "scientific"
-                         "history";
-    width: 100%;
-    /* height: 100%; */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2fr;
+    grid-template-areas: "scientific" "main" "history";            
+    /* width: 100%; */
+    height: 100%;
     
 }
 .dark main{
@@ -34,6 +32,17 @@ main{
     /* height: 100%; */
     
 }
+.scientific{
+    grid-area: scientific;
+    background: green;
+    padding: 50%;
+}
+.history{
+    grid-area: history;
+    background: #808080;
+    padding: 50%;
+}
+
 section{
     display: flex;
     justify-content: center;
@@ -55,14 +64,7 @@ section:hover{
 .threecolumns{
     grid-column: 2/5;
 }
-.scientific{
-    grid-area: scientific;
-    background: green;
-}
-.history{
-    grid-area: history;
-    background: #808080;
-}
+
 #window{
     border:5px solid black;
     background: rgb(20, 164, 169);
@@ -86,7 +88,7 @@ section:hover{
 /* @media only screen and (min-width: 768px){
     body{
         display: grid;
-        grid-template-rows: 100%;
+        /* grid-template-rows: 100%; */
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-areas: "scientific" "main" "history";
         /* height: 100%; */
