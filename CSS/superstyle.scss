@@ -47,7 +47,8 @@ body {
 			justify-content: center;
 			align-items: center;
 			border: 2px solid black;
-			padding: 5px;
+			// padding: 5px;
+			// margin: 5px;
 			font-size: larger;
 			&:hover {
 				background: rgb(121, 180, 229);
@@ -58,8 +59,8 @@ body {
 		}
 		.img {
 			>img {
-				width: 90%;
-				height: 90%;
+				width: 70%;
+				height: 70%;
 			}
 		}
 		.threecolumns {
@@ -96,7 +97,7 @@ body {
 	}
 	
 }
-@media only screen and (max-width: 400px){
+@media only screen and (max-width: 250px){
     body{
 		.gridconteiner{
 			display: grid;

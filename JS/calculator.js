@@ -1,45 +1,173 @@
-
-let buttons = Array.from(document.getElementsByClassName('button'))
-
+let buttons = Array.from(document.getElementsByClassName('button'));
 let num1 = '';
-// let num2 = '';
-let result = null;
-
-for (let i = 0; i<buttons.length; i++){buttons[i].addEventListener('click', (e) => {calc(e)})}
-
-function calc(e){
-    let v = e.target.id
-    // console.log(v);
-    if ((v=='+')||(v=='-')){
-        // console.log('you are here');
-        if (( (num1.charAt(num1.length-1))=='+')||((num1.charAt(num1.length - 1))=='-')){
-            num1 = num1.slice(0,-1);
+let num2 = '';
+let num3 = '';
+let operator = '';
+let result;
+let opernds = ['-', '+', '/', '*'];
+let priorityOperands = ['/', '*'];
+let digits = ['.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', (e) => { calc(e); });
+}
+function CheckSpecialButtonsCalc(e) {
+    let el = e.target;
+    let v = el.id;
+    alert('you are in check c');
+    if (v == 'c') {
+        num1 = '';
+        num2 = '';
+        num3 = '';
+        operator = '';
+        myElement("#window").innerHTML = '';
+        return true;
+    }
+    else if (v == 'back') {
+        if (num3) {
+            num3 = num3.slice(0, -1);
+        }
+        else if (num2) {
+            num2 = num2.slice(0, -1);
+        }
+        else if (num1) {
+            num1 = num1.slice(0, -1);
+        }
+        myElement("#window").innerHTML = num1 + operator + num2 + num3;
+        return true;
+    }
+    return false;
+}
+function calc(e) {
+    let el = e.target;
+    let v = el.id;
+    console.log('start');
+    if (!scientificstate) /*simple mode*/ {
+        // console.log(v);
+        console.log('simple mode');
+        if (opernds.includes(v)) {
+            if (!num2) {
+                operator = v;
+                // num1 = num1.slice(0,-1);
+                // num1 +=v;
+                myElement("#window").innerHTML = num1 + operator;
+            }
+            else {
+                result = Number(eval(num1 + operator + num2));
+                operator = v;
+                myElement("#window").innerHTML = String(result) + operator;
+                num1 = String(result);
+                num2 = '';
+                // operator='';
+                // myElement("#window").innerHTML = num1+operator;
+            }
+        }
+        else if (v == 'c') {
+            num1 = '';
+            num2 = '';
+            operator = '';
+            myElement("#window").innerHTML = '';
+        }
+        else if (v == 'back') {
+            if (num2) {
+                num2 = num2.slice(0, -1);
+            }
+            else if (operator) {
+                operator = operator.slice(0, -1);
+            }
+            else if (num1) {
+                num1 = num1.slice(0, -1);
+            }
+            myElement("#window").innerHTML = num1 + operator + num2;
+        }
+        else if (digits.includes(v)) {
+            if (operator) {
+                num2 += v;
+                myElement("#window").innerHTML = num1 + operator + num2;
+            }
+            else {
+                num1 = num1 + v;
+                myElement("#window").innerHTML = num1;
+            }
+        }
+        else if (v == '=') /*v is =*/ {
+            result = Number(eval(num1 + operator + num2));
+            num1 = '';
+            num2 = '';
+            operator = '';
+            // alert(String(result));
+            if (result) {
+                myElement("#window").innerHTML = String(result);
+            }
         }
     }
-    if (v=='c'){
-        num1 = '';
+    else /*scientific mode לא עובד חלק להסתכל*/ {
+        if (v == 'c') {
+            num1 = '';
+            num2 = '';
+            num3 = '';
+            operator = '';
+            myElement("#window").innerHTML = '';
+        }
+        else if (v == 'back') {
+            if (num3) {
+                num3 = num3.slice(0, -1);
+            }
+            else if (num2) {
+                num2 = num2.slice(0, -1);
+            }
+            else if (operator) {
+                operator = operator.slice(0, -1);
+            }
+            else if (num1) {
+                num1 = num1.slice(0, -1);
+            }
+            myElement("#window").innerHTML = num1 + operator + num2 + num3;
+        }
+        else if (!operator) {
+            if (digits.includes(v)) {
+                num1 += v;
+                myElement("#window").innerHTML = num1;
+            }
+            else if (opernds.includes(v)) {
+                operator = v;
+                myElement("#window").innerHTML = num1 + operator;
+            }
+        }
+        else /*the operator element is not empty */ {
+            if (!num3) {
+                if (digits.includes(v)) {
+                    num2 += v;
+                    myElement("#window").innerHTML = num1 + operator + num2;
+                }
+                else if (!priorityOperands.includes(v)) {
+                    num1 = String(eval(num1 + operator + num2));
+                    operator = v;
+                    num2 = '';
+                    myElement("#window").innerHTML = num1 + operator;
+                }
+                else /*priority operator*/ {
+                    num3 += v;
+                    myElement("#window").innerHTML = num1 + operator + num2 + num3;
+                }
+            }
+            else /*the num3 element is not empty */ {
+                if (digits.includes(v)) {
+                    num3 += v;
+                    myElement("#window").innerHTML = num1 + operator + num2 + num3;
+                }
+                else {
+                    num2 = String(eval(num2 + num3));
+                    operator = v;
+                    num3 = '';
+                    myElement("#window").innerHTML = num1 + operator + num2 + num3;
+                }
+            }
+        }
     }
-    else if(v=='back'){
-        num1 = num1.slice(0,-1);
-        // console.log('num1=',num1);
-    }
-    else if (v!=='='){
-        num1 = num1+v;
-        // console.log('num1=',num1);
-    }
-    else{
-        result = eval(num1);
-        num1 = '';
-        alert(result); 
-    }
-}        
-
-
-
+}
 // function displayButtonInfo(value){
 //     alert(value)
 // }
-
 // document.getElementById("lamp").onclick = function() {displayButtonInfo('lamp')};
 // document.getElementById("setting").onclick = function() {displayButtonInfo('setting')};
 // document.getElementById("window").onclick = function() {displayButtonInfo('window')};
