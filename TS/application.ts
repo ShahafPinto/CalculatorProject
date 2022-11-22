@@ -27,16 +27,16 @@ function getFormData(){
         console.log(color);
         console.log(font);
         console.log(mode);
-        if (color.includes('red')){
-            document.querySelector('body').style.backgroundColor = 'red';
-        }else if (color.includes('pink')){
-            document.querySelector('body').style.backgroundColor = 'pink';
-        }else if (color.includes('yellow')){
-            document.querySelector('body').style.backgroundColor = 'yellow';
-        }else if (color.includes('blue')){
-            document.querySelector('body').style.backgroundColor = 'blue';
+        if (color.includes('beige')){
+            document.querySelector('body').style.backgroundColor = '#F3ECB0';
         }else if (color.includes('green')){
-            document.querySelector('body').style.backgroundColor = 'green';
+            document.querySelector('body').style.backgroundColor = '#ADE792';
+        }else if (color.includes('teal')){
+            document.querySelector('body').style.backgroundColor = '#6ECCAF';
+        }else if (color.includes('navy')){
+            document.querySelector('body').style.backgroundColor = '#344D67';
+        }else if (color.includes('mint')){
+            document.querySelector('body').style.backgroundColor = '#CFF5E7';
         }
         if (font.includes('Times')){
             document.querySelector('body').style.fontFamily = 'Times New Roman';
@@ -57,14 +57,6 @@ function getFormData(){
     }
     
 }
-// form.onsubmit = () => {
-//     const formData = new FormData(form);
-//     const background = formData.get('background-color') as string;
-//     const font = formData.get('font-family') as string;
-//     const mode = formData.get('mode') as string;
-//     console.log(background, font, mode);
-//     // return false; // prevent reload
-// };
 
 function render(): void{
     historystatefunc();
