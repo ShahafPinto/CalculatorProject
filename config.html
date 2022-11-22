@@ -7,14 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <form>
+    <form id="myform" action="index.html">
         <label for="background-color">Choose a background color:</label>
         <select id="color" name="background-color">
             <option value="red">Red</option>
-            <option value="Pink">Pink</option>
-            <option value="Yellow">Yellow</option>
-            <option value="Blue">Blue</option>
-            <option value="Green">Green</option>
+            <option value="pink">Pink</option>
+            <option value="yellow">Yellow</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
         </select></br>
         <label for="font-family">Choose a font-family:</label>
         <select id="font" name="font-family">
@@ -25,10 +25,11 @@
             <option value="Impact">Impact</option>
         </select></br>
         Choose Mode:
-        <input type="radio" id="light" name="mode">Light
-        <input type="radio" id="dark" name="mode">Dark
-    
-    
+        <input type="radio" id="light" name="mode=light">Light
+        <input type="radio" id="dark" name="mode=dark">Dark
+        </br>
+        <input id="sub" type="submit" value="submit">
     </form>
+    <script src="JS/application.js"></script>
 </body>
 </html>

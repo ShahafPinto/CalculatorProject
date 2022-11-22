@@ -1,150 +1,147 @@
 
 let buttons = Array.from(document.getElementsByClassName('button'))
 
-let num1:string = '';
-let num2:string = '';
-let num3:string = '';
-let operator:string='';
-let result:Number;
-let opernds: string[] = ['-','+','/','*'];
-let priorityOperands: string[] = ['/','*'];
-let digits: string[] = ['.','0','1','2','3','4','5','6','7','8','9']
+class Calc {
+    num1: string= '';
+    num2: string= '';
+    num3: string= '';
+    operator: string= '';
+    result: number =0;
+    priorityOperands= ['/','*'];
+    opernds= ['-','+','/','*'];
+    digits= ['.','0','1','2','3','4','5','6','7','8','9'];
+    cur: string= this.num1;
+
+    reset(){
+        this.num1= '';
+        this.num2= '';
+        this.num3='';
+        this.operator= '';
+        this.result=0;
+        this.cur = this.num1;
+        return myElement("#window").innerHTML = '';
+    }
+
+    displayTotal(){
+        return myElement("#window").innerHTML = this.getTotal();
+    }
+    displayResult(){
+        this.result = Number(eval(this.getTotal()));
+        this.num1 = '';
+        this.num2 = '';
+        this.operator='';
+        if (this.result){
+            return myElement("#window").innerHTML = String(this.result);
+        }else{
+            return myElement("#window").innerHTML = this.getTotal();
+        }
+    }
+    getResult(){
+        return Number(eval(this.getTotal()));
+    }
+    getTotal(){
+        return this.num1+this.operator+this.num2+this.num3;
+    }
+    back(){
+        if(this.num3){
+            this.num3 = this.sliceTheLast(this.num3);
+        }else if(this.num2){
+            this.num2 =  this.sliceTheLast(this.num2);
+        }else if(this.operator){
+            this.operator = this.sliceTheLast(this.operator);
+        }
+        else if(this.num1){
+            this.num1 = this.sliceTheLast(this.num1);
+        }
+        return this.displayTotal(); 
+    }
+    sliceTheLast(s:string){
+        return s.slice(0,-1)
+    }
+}
+
 
 for (let i = 0; i<buttons.length; i++){buttons[i].addEventListener('click', (e) => {calc(e)})}
 
-function CheckSpecialButtonsCalc(e: Event):boolean{
-    let el = e.target as HTMLElement;
-    let v = el.id
-    alert('you are in check c')
-    if (v=='c'){
-        num1 = '';
-        num2 = '';
-        num3 = '';
-        operator='';
-        myElement("#window").innerHTML = '';
-        return true
-    }
-    else if(v=='back'){
-        if (num3){
-            num3 = num3.slice(0,-1);
-        }else if(num2){
-            num2 = num2.slice(0,-1);
-        }else if(num1){
-            num1 = num1.slice(0,-1);
-        }
-        myElement("#window").innerHTML = num1+operator+num2+num3;
-        return true
-    }return false   
-}
+let cal = new Calc();
 
+// להכניס את הCUR
 function calc(e:Event){
     let el = e.target as HTMLElement;
     let v = el.id
-    console.log('start')
-    if (!scientificstate) /*simple mode*/{
-        // console.log(v);
-        console.log('simple mode')
-        if (opernds.includes(v)){
-            if (!num2){
-                operator = v;
-                // num1 = num1.slice(0,-1);
-                // num1 +=v;
-                myElement("#window").innerHTML = num1+operator;
+    if (!state.scientific) /*simple mode*/{
+        if (cal.opernds.includes(v)){
+            if (!cal.num2){
+                cal.operator = v;
+                cal.displayTotal();
             }else{
-                result = Number(eval(num1+operator+num2));
-                operator=v;
-                myElement("#window").innerHTML = String(result)+operator;
-                num1 = String(result);
-                num2 = '';
-                // operator='';
-                // myElement("#window").innerHTML = num1+operator;
+                cal.result = cal.getResult();
+                cal.operator=v;
+                myElement("#window").innerHTML = String(cal.result)+cal.operator;
+                cal.num1 = String(cal.result);
+                cal.num2 = '';
             }
         }else if (v=='c'){
-            num1 = '';
-            num2 = '';
-            operator='';
-            myElement("#window").innerHTML = '';
+            cal.reset();
         }else if(v=='back'){
-            if(num2){
-                num2 = num2.slice(0,-1);
-            }else if(operator){
-                operator = operator.slice(0,-1);
-            }
-            else if(num1){
-                num1 = num1.slice(0,-1);
-            }
-            myElement("#window").innerHTML = num1+operator+num2;
-        }else if (digits.includes(v)){
-            if (operator){
-                num2+=v;
-                myElement("#window").innerHTML = num1+operator+num2;
+            cal.back();
+        }else if (cal.digits.includes(v)){
+            if (cal.operator){
+                cal.num2 += v;
+                cal.displayTotal();
             }else{
-                num1 = num1+v;
-                myElement("#window").innerHTML = num1; 
+                cal.num1 = cal.num1+v;
+                cal.displayTotal();
             }
         }else if (v =='=') /*v is =*/{
-            result = Number(eval(num1+operator+num2));
-            num1 = '';
-            num2 = '';
-            operator='';
-            // alert(String(result));
-            if (result){
-                myElement("#window").innerHTML = String(result);
-            }
+            cal.displayResult();
         }
     }
-    
-
-    else /*scientific mode לא עובד חלק להסתכל*/{
+    else /*scientific mode*/{
         if (v=='c'){
-            num1 = '';
-            num2 = '';
-            num3 = '';
-            operator='';
-            myElement("#window").innerHTML = '';
+            cal.reset();
+        }else if(v =='='){
+            cal.displayResult();
         }else if(v=='back'){
-            if(num3){
-                num3 = num3.slice(0,-1);
-            }else if(num2){
-                num2 = num2.slice(0,-1);
-            }else if(operator){
-                operator = operator.slice(0,-1);
-            }
-            else if(num1){
-                num1 = num1.slice(0,-1);
-            }
-            myElement("#window").innerHTML = num1+operator+num2+num3;
-        }else if (!operator){
-            if (digits.includes(v)){
-                num1 += v;
-                myElement("#window").innerHTML = num1;            
-            }else if (opernds.includes(v)){
-                operator = v;
-                myElement("#window").innerHTML = num1+operator;          
+            cal.back();
+        }else if (!cal.operator){
+            if (cal.digits.includes(v)){
+                cal.num1 += v;
+                cal.displayTotal();           
+            }else if (cal.opernds.includes(v)){
+                cal.operator = v;
+                cal.displayTotal();        
             }
         }else /*the operator element is not empty */{
-            if (!num3){
-                if (digits.includes(v)){
-                    num2 += v;
-                    myElement("#window").innerHTML = num1+operator+num2;            
-                }else if(!priorityOperands.includes(v)){
-                    num1 = String(eval(num1+operator+num2));
-                    operator = v;
-                    num2 = '';
-                    myElement("#window").innerHTML = num1+operator;
+            if (!cal.num3){
+                if (cal.digits.includes(v)){
+                    cal.num2 += v;
+                    cal.displayTotal();          
+                }else if(!cal.priorityOperands.includes(v)){
+                    cal.num1 = String(cal.getResult);
+                    cal.operator = v;
+                    cal.num2 = '';
+                    cal.displayTotal();
                 }else /*priority operator*/{
-                    num3 += v;
-                    myElement("#window").innerHTML = num1+operator+num2+num3;   
+                    cal.num3 += v;
+                    cal.displayTotal();
                 }
             }else /*the num3 element is not empty */{
-                if (digits.includes(v)){
-                    num3 += v;
-                    myElement("#window").innerHTML = num1+operator+num2+num3;            
+                if (cal.digits.includes(v)){
+                    cal.num3 += v;
+                    cal.displayTotal();         
                 }else{
-                    num2 = String(eval(num2+num3));
-                    operator=v;
-                    num3 = '';
-                    myElement("#window").innerHTML = num1+operator+num2+num3;
+                    cal.num2 = String(eval(cal.num2+cal.num3));
+                    cal.num3 = '';
+                    if (!cal.priorityOperands.includes(v)){
+                        cal.num1 = String(cal.getResult());
+                        cal.operator = v;
+                        cal.num2 = '';
+                        cal.displayTotal();
+                    }else/*priority operator*/{
+                        cal.num3 += v;
+                        cal.displayTotal();
+                    }
                 }
             }
             
@@ -152,35 +149,3 @@ function calc(e:Event){
         
     }
 }        
-
-
-
-// function displayButtonInfo(value){
-//     alert(value)
-// }
-
-// document.getElementById("lamp").onclick = function() {displayButtonInfo('lamp')};
-// document.getElementById("setting").onclick = function() {displayButtonInfo('setting')};
-// document.getElementById("window").onclick = function() {displayButtonInfo('window')};
-// document.getElementById("back").onclick = function() {displayButtonInfo('back')};
-// document.getElementById("time").onclick = function() {displayButtonInfo('time')};
-// document.getElementById("c").onclick = function() {displayButtonInfo('c')};
-// document.getElementById("/").onclick = function() {displayButtonInfo('/')};
-// document.getElementById("root").onclick = function() {displayButtonInfo('root')};
-// document.getElementById("7").onclick = function() {displayButtonInfo('7')};
-// document.getElementById("8").onclick = function() {displayButtonInfo('8')};
-// document.getElementById("9").onclick = function() {displayButtonInfo('9')};
-// document.getElementById("*").onclick = function() {displayButtonInfo('*')};
-// document.getElementById("restore").onclick = function() {displayButtonInfo('restore')};
-// document.getElementById("4").onclick = function() {displayButtonInfo('4')};
-// document.getElementById("5").onclick = function() {displayButtonInfo('5')};
-// document.getElementById("6").onclick = function() {displayButtonInfo('6')};
-// document.getElementById("-").onclick = function() {displayButtonInfo('-')};
-// document.getElementById("1").onclick = function() {displayButtonInfo('1')};
-// document.getElementById("2").onclick = function() {displayButtonInfo('2')};
-// document.getElementById("3").onclick = function() {displayButtonInfo('3')};
-// document.getElementById("+").onclick = function() {displayButtonInfo('+')};
-// document.getElementById("+-").onclick = function() {displayButtonInfo('+-')};
-// document.getElementById("0").onclick = function() {displayButtonInfo('0')};
-// document.getElementById(".").onclick = function() {displayButtonInfo('.')};
-// document.getElementById("even").onclick = function() {displayButtonInfo('=')};

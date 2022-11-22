@@ -1,12 +1,82 @@
+// let a = ()=> {window.open("config.html",'_blank')};
+let state = {
+    light: false,
+    history: true,
+    scientific: true,
+    remote: false
+};
 document.getElementById("info").addEventListener("click", infoFunction);
 document.getElementById("light").addEventListener("click", lightstatefunc);
 document.getElementById("history").addEventListener("click", historystatefunc);
 document.getElementById("scientific").addEventListener("click", scientificstatefunc);
 document.getElementById("remote").addEventListener("click", remotestatefunc);
-let lightstate = true;
-let historystate = true;
-let scientificstate = true;
-let remotestate = true;
+document.getElementById("setting").addEventListener("click", openForm);
+document.addEventListener("DOMContentLoaded", render);
+// document.querySelector('body').setAttribute('class','dark');
+function getFormData() {
+    let data = window.location.search;
+    if (data) {
+        console.log(data);
+        let color = data.substring(data.indexOf('color') + 6, data.indexOf('color') + 12);
+        let font = data.substring(data.indexOf('family') + 7, data.indexOf('family') + 17);
+        let mode = data.substring(data.indexOf('mode') + 7, data.indexOf('mode') + 12);
+        console.log(color);
+        console.log(font);
+        console.log(mode);
+        if (color.includes('red')) {
+            document.querySelector('body').style.backgroundColor = 'red';
+        }
+        else if (color.includes('pink')) {
+            document.querySelector('body').style.backgroundColor = 'pink';
+        }
+        else if (color.includes('yellow')) {
+            document.querySelector('body').style.backgroundColor = 'yellow';
+        }
+        else if (color.includes('blue')) {
+            document.querySelector('body').style.backgroundColor = 'blue';
+        }
+        else if (color.includes('green')) {
+            document.querySelector('body').style.backgroundColor = 'green';
+        }
+        if (font.includes('Times')) {
+            document.querySelector('body').style.fontFamily = 'Times New Roman';
+        }
+        else if (font.includes('Arial')) {
+            document.querySelector('body').style.fontFamily = 'Arial';
+        }
+        else if (font.includes('Gill')) {
+            document.querySelector('body').style.fontFamily = 'Gill Sans';
+        }
+        else if (font.includes('Lucida')) {
+            document.querySelector('body').style.fontFamily = 'Lucida Sans';
+        }
+        else if (font.includes('Impact')) {
+            document.querySelector('body').style.fontFamily = 'Impact';
+        }
+        if (mode.includes('dark')) {
+            console.log('dark is on!!!!');
+            document.querySelector('body').style.removeProperty('background-color');
+            document.querySelector('body').style.removeProperty('font-family');
+            document.querySelector('body').setAttribute('class', 'dark');
+        }
+    }
+}
+// form.onsubmit = () => {
+//     const formData = new FormData(form);
+//     const background = formData.get('background-color') as string;
+//     const font = formData.get('font-family') as string;
+//     const mode = formData.get('mode') as string;
+//     console.log(background, font, mode);
+//     // return false; // prevent reload
+// };
+function render() {
+    historystatefunc();
+    scientificstatefunc();
+    getFormData();
+}
+function openForm() {
+    window.open("config.html", '_blank');
+}
 function myElement(s) {
     return document.querySelector(`${s}`);
 }
@@ -20,8 +90,8 @@ function BottunStateIsOff(id) {
     myElement(`${id}`).style.removeProperty('background-color');
 }
 function lightstatefunc() {
-    lightstate = !lightstate;
-    if (lightstate) {
+    state.light = !state.light;
+    if (state.light) {
         myElement('#window').style.backgroundColor = 'yellow';
         BottunStateIsOn('#light');
     }
@@ -32,34 +102,30 @@ function lightstatefunc() {
     // alert(lightstate)
 }
 function historystatefunc() {
-    historystate = !historystate;
-    alert(historystate);
+    state.history = !state.history;
+    if (state.history) {
+        BottunStateIsOn('#history');
+        myElement(".historyPanel").style.display = 'block';
+    }
+    else {
+        BottunStateIsOff('#history');
+        myElement(".historyPanel").style.display = 'none';
+    }
 }
 function scientificstatefunc() {
-    scientificstate = !scientificstate;
-    if (scientificstate) {
+    state.scientific = !state.scientific;
+    if (state.scientific) {
         BottunStateIsOn('#scientific');
+        myElement(".scientificPanel").style.display = 'block';
+        cal.reset();
     }
     else {
         BottunStateIsOff('#scientific');
+        cal.reset();
+        myElement(".scientificPanel").style.display = 'none';
     }
-    // alert(scientificstate)
 }
 function remotestatefunc() {
-    remotestate = !remotestate;
-    alert(remotestate);
+    state.remote = !state.remote;
+    alert(state.remote);
 }
-// const buttons1 = document.getElementsByTagName("img")
-// for (let button  in buttons1){
-//     button.addEventListener("click", ()=> {alert(button.getAttribute("id"))})
-// }
-//  buttons.onclick = function() {displayButtonInfo()}
-// function displayButtonInfo(value){
-//         alert(value)
-//     }
-// const o = {
-//     foo: function (){
-//     console.log(this)}
-// }
-// o.foo()
-// document.addeventListener('click', () =>{})

@@ -1,17 +1,21 @@
 /* for mobile */
 /* For desktop: */
-body .dark main {
+.dark {
+  background: rgb(44, 60, 63);
+}
+.dark main, .dark #bottom {
   background: rgb(54, 73, 77);
 }
-body .dark .num {
+.dark main .num, .dark #bottom .num {
   background: rgb(68, 92, 96);
 }
-body .dark .threecolumns {
+.dark main .threecolumns, .dark #bottom .threecolumns {
   background: rgb(38, 34, 102);
 }
-body .dark section:hover {
+.dark main section:hover, .dark #bottom section:hover {
   background: rgb(116, 130, 142);
 }
+
 body .gridconteiner {
   display: grid;
   grid-template-rows: 100%;
@@ -24,7 +28,7 @@ body main {
   background: rgb(175, 232, 241);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(8, 0.5fr);
+  grid-template-rows: repeat(7, 0.5fr) 1fr;
 }
 body main section {
   display: flex;
@@ -61,15 +65,10 @@ body main .even > img {
 body main .doublerow {
   grid-row: -3/-1;
 }
-body main #bottom {
-  background: rgb(175, 232, 241);
-}
 body .scientific {
-  background: green;
   padding: 50%;
 }
 body .history {
-  background: #808080;
   padding: 50%;
 }
 
