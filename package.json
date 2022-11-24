@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "sass CSS/superstyle.scss CSS/style.css",
+    "build": "sass STYLE/superstyle.scss STYLE/style.css",
     "build-ts": "tsc TS/calculator.ts TS/application.ts ",
     "dev-server": "live-server src",
-    "dev-sass": "sass CSS/superstyle.scss CSS/style.css --watch",
+    "dev-sass": "sass STYLE/superstyle.scss STYLE/style.css --watch",
     "dev": "npm run dev-server & npm run dev-sass",
     "start": "echo \"No start script\" && exit 0"
   },
