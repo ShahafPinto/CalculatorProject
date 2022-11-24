@@ -14,44 +14,54 @@ document.getElementById("remote").addEventListener("click", remotestatefunc);
 document.getElementById("setting").addEventListener("click", openForm); 
 
 document.addEventListener("DOMContentLoaded", render);
-
 // document.querySelector('body').setAttribute('class','dark');
-
+// function createBgAndFont(_color:String,_font:String){
+//     document.querySelector('body').setAttribute('class',`${_color} ${_font}`);
+// }
+function findColor(_color:String){
+    if (_color.includes('beige')){
+        return 'beige';
+    }else if (_color.includes('green')){
+        return 'green';    
+    }else if (_color.includes('teal')){
+        return 'teal';
+    }else if (_color.includes('navy')){
+        return 'navy';
+    }else if (_color.includes('mint')){
+        return 'mint';
+    }
+}
+function findFont(_font:String){
+    if (_font.includes('Times')){
+        return 'times';
+    }else if (_font.includes('Arial')){
+        return 'arial';    
+    }else if (_font.includes('Gill')){
+        return 'gill';    
+    }else if (_font.includes('Lucida')){
+        return 'lucida';    
+    }else if (_font.includes('Impact')){
+        return 'impact';    
+    }
+}
 function getFormData(){
     let data = window.location.search;
+    let bgcolor = '';
+    let fontf = '';
     if (data){
-        console.log(data);
+        // console.log(data);
         let color = data.substring(data.indexOf('color')+6,data.indexOf('color')+12);
         let font =  data.substring(data.indexOf('family')+7,data.indexOf('family')+17);
         let mode = data.substring(data.indexOf('mode')+7,data.indexOf('mode')+12);
-        console.log(color);
-        console.log(font);
-        console.log(mode);
-        if (color.includes('beige')){
-            document.querySelector('body').style.backgroundColor = '#F3ECB0';
-        }else if (color.includes('green')){
-            document.querySelector('body').style.backgroundColor = '#ADE792';
-        }else if (color.includes('teal')){
-            document.querySelector('body').style.backgroundColor = '#6ECCAF';
-        }else if (color.includes('navy')){
-            document.querySelector('body').style.backgroundColor = '#344D67';
-        }else if (color.includes('mint')){
-            document.querySelector('body').style.backgroundColor = '#CFF5E7';
-        }
-        if (font.includes('Times')){
-            document.querySelector('body').style.fontFamily = 'Times New Roman';
-        }else if (font.includes('Arial')){
-            document.querySelector('body').style.fontFamily = 'Arial';
-        }else if (font.includes('Gill')){
-            document.querySelector('body').style.fontFamily = 'Gill Sans';
-        }else if (font.includes('Lucida')){
-            document.querySelector('body').style.fontFamily = 'Lucida Sans';
-        }else if (font.includes('Impact')){
-            document.querySelector('body').style.fontFamily = 'Impact';
-        }if (mode.includes('dark')){
-            console.log('dark is on!!!!')
-            document.querySelector('body').style.removeProperty('background-color');
-            document.querySelector('body').style.removeProperty('font-family');
+        // console.log(color);
+        // console.log(font);
+        // console.log(mode);
+        bgcolor = findColor(color);
+        fontf = findFont(font);
+        document.querySelector('body').setAttribute('class',`${bgcolor} ${fontf}`);
+
+        if (mode.includes('dark')){
+            // console.log('dark is on!!!!')
             document.querySelector('body').setAttribute('class','dark');
         }
     }
