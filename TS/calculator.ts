@@ -1,5 +1,5 @@
 
-let buttons = Array.from(document.getElementsByClassName('button'))
+let buttons = Array.from(document.getElementsByClassName('button'));
 
 class Calc {
     num1: string= '';
@@ -26,15 +26,15 @@ class Calc {
     displayTotal(){
         return myElement("#window").innerHTML = this.getTotal();
     }
-    displayResult(){
-        this.result = Number(eval(this.getTotal()));
+    displayResult(_s:String = String(this.getTotal())){
+        this.result = Number(eval(String(_s)));
         this.num1 = '';
         this.num2 = '';
         this.operator='';
         if (this.result){
             return myElement("#window").innerHTML = String(this.result);
         }else{
-            return myElement("#window").innerHTML = this.getTotal();
+            return myElement("#window").innerHTML = String(_s);
         }
     }
     getResult(){
@@ -46,23 +46,33 @@ class Calc {
     back(){
         if(this.num3){
             this.num3 = this.sliceTheLast(this.num3);
+            myElement(".hispanel").innerHTML = (myElement(".hispanel").innerHTML).slice(0,-1);
         }else if(this.num2){
             this.num2 =  this.sliceTheLast(this.num2);
+            myElement(".hispanel").innerHTML = (myElement(".hispanel").innerHTML).slice(0,-1);
         }else if(this.operator){
             this.operator = this.sliceTheLast(this.operator);
+            myElement(".hispanel").innerHTML = (myElement(".hispanel").innerHTML).slice(0,-1);
         }
         else if(this.num1){
             this.num1 = this.sliceTheLast(this.num1);
+            myElement(".hispanel").innerHTML = (myElement(".hispanel").innerHTML).slice(0,-1);
         }
         return this.displayTotal(); 
     }
     sliceTheLast(s:string){
         return s.slice(0,-1)
     }
+    getResultRemoteMode(s:string){
+
+    }
+    getThelast(){
+        return String(this.getTotal).charAt(String(this.getTotal).length-1);
+    }
 }
 
 
-for (let i = 0; i<buttons.length; i++){buttons[i].addEventListener('click', (e) => {calc(e)})}
+for (let i = 0; i<buttons.length; i++){buttons[i].addEventListener('click', (e) => {calc(e)})};
 
 let cal = new Calc();
 
@@ -70,7 +80,10 @@ let cal = new Calc();
 function calc(e:Event){
     let el = e.target as HTMLElement;
     let v = el.id
-    if (!state.scientific) /*simple mode*/{
+    // if (state.remote){
+
+    // }
+     if (!state.scientific) /*simple mode*/{
         if (cal.opernds.includes(v)){
             if (!cal.num2){
                 cal.operator = v;
@@ -86,50 +99,89 @@ function calc(e:Event){
             }
         }else if (v=='c'){
             cal.reset();
-        }else if(v=='back'){ //צריך להכניס להיסטורי פאנל!!!!!
+        }else if(v=='back'){ 
             cal.back();
         }else if (cal.digits.includes(v)){
             if (cal.operator){
                 cal.num2 += v;
                 cal.displayTotal();
-                myElement(".hispanel").innerHTML += cal.num2;
+                myElement(".hispanel").innerHTML += v;
             }else{
                 cal.num1 = cal.num1+v;
                 cal.displayTotal();
-                myElement(".hispanel").innerHTML += cal.num1;
+                myElement(".hispanel").innerHTML += v;
             }
         }else if (v =='=') /*v is =*/{
-            cal.displayResult();
+            let display:String;
+            if (cal.operator.includes(cal.getTotal().slice(-1))){
+                display = cal.sliceTheLast(cal.getTotal());
+            }
+            cal.displayResult(display);
             myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>';
+            cal.num1 = String(cal.result);
+            cal.num2='';
+            cal.operator='';
         }
     }
     else /*scientific mode*/{
-        if (v=='c'){
+        if(v=='xpt'){
+            let display = Math.pow(Number(cal.getResult()),2);
+            cal.displayResult(String(display));
+            myElement(".hispanel").innerHTML += '^2='+String(display);
+            cal.num1 = String(display);
+            cal.num2='';
+            cal.num3='';
+            cal.operator='';
+        }else if(v=='xrootpt'){
+            let display = Math.sqrt(Number(cal.getResult()));
+            cal.displayResult(String(display));
+            myElement(".hispanel").innerHTML += '<br>='+String(display);
+            cal.num1 = String(display);
+            cal.num2='';
+            cal.num3='';
+            cal.operator='';
+        }else if (v=='c'){
             cal.reset();
         }else if(v =='='){
-            cal.displayResult();
+            let display:String;
+            if (cal.operator.includes(cal.getTotal().slice(-1))){
+                display = cal.sliceTheLast(cal.getTotal());
+            }
+            cal.displayResult(display);
             myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>';
+            cal.num1 = String(cal.result);
+            cal.num2='';
+            cal.num3='';
+            cal.operator='';
         }else if(v=='back'){
             cal.back();
         }else if (!cal.operator){
             if (cal.digits.includes(v)){
                 cal.num1 += v;
                 cal.displayTotal(); 
-                myElement(".hispanel").innerHTML += cal.num1;          
+                myElement(".hispanel").innerHTML += v;          
             }else if (cal.opernds.includes(v)){
                 cal.operator = v;
                 cal.displayTotal();
                 myElement(".hispanel").innerHTML += cal.operator;         
-            }
+            }else if(v=='pi'){
+                let pi= String(Math.PI.toFixed(3));
+                cal.num1 += pi;
+                cal.displayTotal(); 
+                myElement(".hispanel").innerHTML += pi;
+            }  
         }else /*the operator element is not empty */{
             if (!cal.num3){
-                // console.log('bugbugbug!!!')
-                if (cal.digits.includes(v)){
+                if(v=='pi'){
+                    let pi= String(Math.PI.toFixed(3));
+                    cal.num2 += pi;
+                    cal.displayTotal(); 
+                    myElement(".hispanel").innerHTML += pi;
+                }else if (cal.digits.includes(v)){
                     cal.num2 += v;
                     cal.displayTotal(); 
-                    myElement(".hispanel").innerHTML += cal.num2;          
+                    myElement(".hispanel").innerHTML += v;          
                 }else if(!cal.priorityOperands.includes(v)){
-                    // console.log('you are here!!!')
                     cal.num1 = String(cal.getResult());
                     cal.operator = v;
                     cal.num2 = '';

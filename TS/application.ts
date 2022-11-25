@@ -83,7 +83,9 @@ function myElement(s:string){
 }
 
 function infoFunction():void {
-    alert('Developer\'s name: Shahaf Pinto\nCalculator\'s version (stage): 1\nDescription: This Calculator is a device that performs arithmetic operations on numbers.\nBasic calculators can do only addition, subtraction, multiplication and division mathematical calculations.');
+    let popup = document.getElementById("myPopup");
+    popup.innerHTML = 'Developer\'s name: Shahaf Pinto<br>Calculator\'s version (stage): 1<br>Description: This Calculator is a device that performs arithmetic operations on numbers.\nBasic calculators can do only addition, subtraction, multiplication and division mathematical calculations.';
+    popup.classList.toggle("show");
 }
 
 function BottunStateIsOn(id:string){
@@ -126,6 +128,10 @@ function scientificstatefunc():void{
     }
 }
 function remotestatefunc(){
-    state.remote = !state.remote
-    alert(state.remote)
+    state.remote = !state.remote;
+    if (state.remote){
+        BottunStateIsOn('#remote');
+    }else{
+       BottunStateIsOff('#remote'); 
+    }
 }
