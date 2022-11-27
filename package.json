@@ -1,15 +1,26 @@
 {
   "name": "calculator-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "calculator-project",
   "main": "index.js",
+
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "sass STYLE/superstyle.scss STYLE/style.css",
+    "build-ts": "tsc TS/calculator.ts TS/application.ts ",
+    "dev-server": "live-server src",
+    "dev-sass": "sass STYLE/superstyle.scss STYLE/style.css --watch",
+    "dev": "npm run dev-server & npm run dev-sass",
+    "start": "echo \"No start script\" && exit 0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3",
+    "http-server": "^14.1.1",
+    "sass": "^1.56.1"
   }
 }

@@ -5,44 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator-Project Shahaf Pinto</title>
-    <link rel="stylesheet" href="/CSS/style.css">
+    <link rel="stylesheet" href="/STYLE/style.css">
 </head>
 <body>
-    <main>
-        <section class="img" id="info"><img src="images/info.png"></section>
-        <section class="threecolumns" id="mycalculator">My Calculatur</section>
-        <section class="img button"><img id="setting" src="images/settings.png"></section>
-        <section class="img button"><img id="light" src="images/lamp.png"></section>
-        <section class="threecolumns" class="button" id="window"></section>
-        <section class="img button"><img id="back" src="images/back.png"></section>
-        <section class="img button"><img id="history" src="images/time-left.png"></section>
-        <section class="threecolumns button" id="c">C</section>
-        <section class="img button" ><img id="/" src="images/divide-mathematical-sign.png"></section>
-        <section class="img button" id="scientific"><img src="images/square-root.png"></section>
-        <section class="num button" id="7">7</section>
-        <section class="num button" id="8">8</section>
-        <section class="num button" id="9">9</section>
-        <section class="img button"><img id="*" src="images/multiplication-sign.png"></section>
-        <section class="img button"><img id="remote" src="images/restore.png"></section>
-        <section class="num button" id="4">4</section>
-        <section class="num button" id="5">5</section>
-        <section class="num button" id="6">6</section>
-        <section class="img button" ><img id="-" src="images/minus.png"></section>
-        <section></section>
-        <section class="num button" id="1">1</section>
-        <section class="num button" id="2">2</section>
-        <section class="num button" id="3">3</section>
-        <section class="img button" ><img id="+" src="images/add.png"></section>
-        <!-- <section class="img button" id="+">+</section> -->
-        <section class="doublerow"></section>
-        <section class="img button" ><img id="+-" src="images/plusminus.png"></section>
-        <section class="num button" id="0">0</section>
-        <section class="num" id=".">.</section>
-        <section class="img button"><img id="=" src="images/equal.png"></section>
-        <section class="threecolumns" id="bottom"></section>
-    </main>
-    <div class="scientific"></div>
-    <div class="history"></div>
+    <div class="gridconteiner">
+        <div class="history">
+            <div class="historyPanel">
+                <div class="conteinerhistory">
+                    <div class="histitle">
+                        <img src="/images/time-left.png">Operations log 
+                    </div>
+                    <div class="hispanel">
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <main>
+            <section class="img" id="info"><img src="images/info.png"></section>
+            <section class="threecolumns" id="mycalculator">My Calculatur</section>
+            <section class="img"><img id="setting" src="images/settings.png"></section>
+            <section class="img" id="light"><img id="light" src="images/lamp.png"></section>
+            <section class="threecolumns" class="button" id="window"></section>
+            <section class="img button"><img id="back" src="images/back.png"></section>
+            <section class="img" id="history"><img id="history" src="images/time-left.png"></section>
+            <section class="threecolumns button" id="c">C</section>
+            <section class="img button" id="/"><img id="/" src="images/divide-mathematical-sign.png"></section>
+            <section class="img button" id="scientific"><img src="images/square-root.png"></section>
+            <section class="num button" id="7">7</section>
+            <section class="num button" id="8">8</section>
+            <section class="num button" id="9">9</section>
+            <section class="img button" id="*"><img id="*" src="images/multiplication-sign.png"></section>
+            <section class="img button" id="remote"><img id="remote" src="images/restore.png"></section>
+            <section class="num button" id="4">4</section>
+            <section class="num button" id="5">5</section>
+            <section class="num button" id="6">6</section>
+            <section class="img button" id="-"><img id="-" src="images/minus.png"></section>
+            <section></section>
+            <section class="num button" id="1">1</section>
+            <section class="num button" id="2">2</section>
+            <section class="num button" id="3">3</section>
+            <section class="img button" id="+"><img id="+" src="images/add.png"></section>
+            <section class="doublerow"></section>
+            <section class="img button" ><img src="images/plusminus.png"></section>
+            <section class="num button" id="0">0</section>
+            <section class="num button" id=".">.</section>
+            <section class="img button even" id="="><img id="=" src="images/equal.png"></section>
+            <section class="threecolumns" id="bottom"></section>
+        </main>
+        <div class="scientific">
+            <div class="scientificPanel">
+                <div class="conteinerscient">
+                    <div class="scienTitle">
+                        <img src="images/square-root.png">Scientific 
+                    </div>
+                    <div class="empty"></div>
+                    <section class="img button" id="xpt"> x<sub class="sub">2</sub></section>
+                    <section class="img button" id="xrootpt"><sub class="sub">2</sub><img id="xrootpt" src="/images/formula.png"></section>
+                    <section class="img button" id="^"> x<sub class="sub">y</sub></section>
+                    <section class="img button"><sub class="sub">y</sub><img id="xrooty" src="/images/formula.png"></section>
+                    <section class="button">mod</section>
+                    <section class="img button" id="pi"><img id="pi" src="/images/pi.png"></section>
+                    <section class="img button base">Base2</section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup"><span class="popuptext" id="myPopup"></span></div>
     <script src="JS/application.js"></script>
     <script src="JS/calculator.js"></script>
 </body>
