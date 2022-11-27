@@ -79,10 +79,7 @@ let cal = new Calc();
 // להכניס את הCUR
 function calc(e:Event){
     let el = e.target as HTMLElement;
-    let v = el.id
-    // if (state.remote){
-
-    // }
+    let v = el.id;
      if (!state.scientific) /*simple mode*/{
         if (cal.opernds.includes(v)){
             if (!cal.num2){
@@ -112,15 +109,23 @@ function calc(e:Event){
                 myElement(".hispanel").innerHTML += v;
             }
         }else if (v =='=') /*v is =*/{
-            let display:String;
+            let display:String = cal.getTotal();
             if (cal.operator.includes(cal.getTotal().slice(-1))){
                 display = cal.sliceTheLast(cal.getTotal());
             }
-            cal.displayResult(display);
-            myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>';
-            cal.num1 = String(cal.result);
-            cal.num2='';
-            cal.operator='';
+            if (state.remote){
+                remoteCalc(display).then( ()=> {
+                    cal.displayResult(String(cal.result));
+                    myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>'; 
+                })
+                
+            }else{
+                cal.displayResult(display);
+                myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>';
+                cal.num1 = String(cal.result);
+                cal.num2='';
+                cal.operator=''; 
+            }
         }
     }
     else /*scientific mode*/{
@@ -143,16 +148,24 @@ function calc(e:Event){
         }else if (v=='c'){
             cal.reset();
         }else if(v =='='){
-            let display:String;
+            let display:String = cal.getTotal();
             if (cal.operator.includes(cal.getTotal().slice(-1))){
                 display = cal.sliceTheLast(cal.getTotal());
+            }if (state.remote){
+                console.log('state remote is on');
+                console.log(display);
+                remoteCalc(display).then( ()=> {
+                    cal.displayResult(String(cal.result));
+                    myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>'; 
+                }) 
+            }else{
+               cal.displayResult(display);
+                myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>';
+                cal.num1 = String(cal.result);
+                cal.num2='';
+                cal.num3='';
+                cal.operator=''; 
             }
-            cal.displayResult(display);
-            myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>';
-            cal.num1 = String(cal.result);
-            cal.num2='';
-            cal.num3='';
-            cal.operator='';
         }else if(v=='back'){
             cal.back();
         }else if (!cal.operator){
@@ -219,3 +232,23 @@ function calc(e:Event){
         
     }
 }        
+
+
+    
+async function remoteCalc(v: String) {
+    // const a; //submit button
+    // const b; //expresion input
+    console.log('v=',v);
+    // const rawExpresion = b.value;
+    let expresion = encodeURIComponent(String(v));
+    console.log('expresion=',expresion);
+    const response = await fetch(`https://api.mathjs.org/v4/?expr=${expresion}`);
+    cal.result = Number(await response.text());
+    // const result = await response.text();
+    console.log('result=',cal.result);
+    // return result;
+    // alert(result);
+    // const = result; //handle result
+    // async functions always return something => a promise
+
+}
