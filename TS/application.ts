@@ -14,10 +14,8 @@ document.getElementById("remote").addEventListener("click", remotestatefunc);
 document.getElementById("setting").addEventListener("click", openForm); 
 
 document.addEventListener("DOMContentLoaded", render);
-// document.querySelector('body').setAttribute('class','dark');
-// function createBgAndFont(_color:String,_font:String){
-//     document.querySelector('body').setAttribute('class',`${_color} ${_font}`);
-// }
+
+
 function findColor(_color:String){
     if (_color.includes('beige')){
         return 'beige';
@@ -49,19 +47,14 @@ function getFormData(){
     let bgcolor = '';
     let fontf = '';
     if (data){
-        // console.log(data);
         let color = data.substring(data.indexOf('color')+6,data.indexOf('color')+12);
         let font =  data.substring(data.indexOf('family')+7,data.indexOf('family')+17);
         let mode = data.substring(data.indexOf('mode')+7,data.indexOf('mode')+12);
-        // console.log(color);
-        // console.log(font);
-        // console.log(mode);
         bgcolor = findColor(color);
         fontf = findFont(font);
         document.querySelector('body').setAttribute('class',`${bgcolor} ${fontf}`);
 
         if (mode.includes('dark')){
-            // console.log('dark is on!!!!')
             document.querySelector('body').setAttribute('class','dark');
         }
     }
@@ -103,12 +96,12 @@ function lightstatefunc():void{
         myElement('#window').style.removeProperty('background-color');
         BottunStateIsOff('#light');
     }
-    // alert(lightstate)
+
 }
 function historystatefunc():void{
     state.history = !state.history
     if(state.history){
-        BottunStateIsOn('#history')
+        BottunStateIsOn('#history');
         myElement(".historyPanel").style.display='block';
     }else{
         BottunStateIsOff('#history');
@@ -128,10 +121,6 @@ function scientificstatefunc():void{
     }
 }
 function remotestatefunc(){
-    state.remote = !state.remote;
-    if (state.remote){
-        BottunStateIsOn('#remote');
-    }else{
-       BottunStateIsOff('#remote'); 
-    }
+    state.remote = !state.remote; 
+    (state.remote) ? BottunStateIsOn('#remote'):BottunStateIsOff('#remote');
 }
