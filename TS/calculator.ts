@@ -114,11 +114,18 @@ function calc(e:Event){
                 display = cal.sliceTheLast(cal.getTotal());
             }
             if (state.remote){
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 2000);
                 remoteCalc(display).then( ()=> {
                     cal.displayResult(String(cal.result));
                     myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>'; 
-                })
-                
+                }).catch((err) => {
+                    if (err.name === "AbortError") {
+                        alert('you sould return to local mode');
+                    }
+                }).finally(()=>{
+                    clearTimeout(timeoutId);
+                });
             }else{
                 cal.displayResult(display);
                 myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>';
@@ -152,12 +159,18 @@ function calc(e:Event){
             if (cal.operator.includes(cal.getTotal().slice(-1))){
                 display = cal.sliceTheLast(cal.getTotal());
             }if (state.remote){
-                console.log('state remote is on');
-                console.log(display);
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 2000);
                 remoteCalc(display).then( ()=> {
                     cal.displayResult(String(cal.result));
                     myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>'; 
-                }) 
+                }).catch((err) => {
+                    if (err.name === "AbortError") {
+                        alert('you sould return to local mode');
+                    }
+                }).finally(()=>{
+                    clearTimeout(timeoutId);
+                });
             }else{
                cal.displayResult(display);
                 myElement(".hispanel").innerHTML += '<br>='+String(cal.result)+'<br>';
@@ -236,19 +249,11 @@ function calc(e:Event){
 
     
 async function remoteCalc(v: String) {
-    // const a; //submit button
-    // const b; //expresion input
-    console.log('v=',v);
-    // const rawExpresion = b.value;
+    // console.log('v=',v);
     let expresion = encodeURIComponent(String(v));
-    console.log('expresion=',expresion);
+    // console.log('expresion=',expresion);
     const response = await fetch(`https://api.mathjs.org/v4/?expr=${expresion}`);
     cal.result = Number(await response.text());
-    // const result = await response.text();
-    console.log('result=',cal.result);
-    // return result;
-    // alert(result);
-    // const = result; //handle result
-    // async functions always return something => a promise
+    // console.log('result=',cal.result);
 
 }

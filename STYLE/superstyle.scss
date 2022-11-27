@@ -1,5 +1,4 @@
 
-/* for mobile */
 /* For desktop: */
 .dark {
 	background: rgb(44, 60, 63);
@@ -133,7 +132,7 @@
 	cursor: pointer;
 }
   
-  /* The actual popup (appears on top) */
+/* The actual popup (appears on top) */
 .popup .popuptext {
 	visibility: hidden;
 	width: 200px;
@@ -144,18 +143,18 @@
 	padding: 8px 8px;
 	position: absolute;
 	z-index: 1;
-	bottom: 500%;
-	// left: 10%;
-	margin-left: -225px;
+	bottom: 250%;
+	// left: 50%;
+	margin-left: 150%;
 }
   
   /* Popup arrow */
   .popup .popuptext::after {
 	content: "";
 	position: absolute;
-	// top: 0;
-	left: 50%;
-	margin-left: -5px;
+	top: 100%;
+	left: -100%;
+	margin-left: 5px;
 	border-width: 5px;
 	border-style: solid;
 	border-color: #555 transparent transparent transparent;
@@ -165,21 +164,14 @@
   .popup .show {
 	visibility: visible;
 	-webkit-animation: fadeIn 1s;
-	animation: fadeIn 1s
+	animation: fadeIn 1s;
   }
   
 body {
 		
-	// display: grid;
 	background: #ADE792;
-	// grid-template-columns: 100%;
-	// grid-template-rows: 2fr 1fr 1fr;
-	// grid-template-areas: "main" "scientific" "history";
-	// height: 100%;
-	// font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 	.gridconteiner{
 		display: grid;
-		// position:absolute;
 		grid-template-rows: 100%;
 		grid-template-columns: 1fr 2fr 1fr;
 		grid-template-areas: "history main scientific";
@@ -232,7 +224,6 @@ body {
 					justify-content: center;
 					flex-wrap:nowrap;
 					grid-column: 1/3;
-					// justify-content: space-around;
 				}
 				img{
 					width: 20%;
@@ -241,12 +232,9 @@ body {
 				.empty{
 						grid-column: 1/3;
 						border: 1px solid black;
-						// grid-row: 2/4;
-						// background: #344D67;
 					}
 				.base{
 					grid-column: 1/3;
-					// grid-row: 7/9;
 				}
 				section{
 					border: 1px solid black;
@@ -265,22 +253,16 @@ body {
 			}
 	}
 	main {
-		// grid-area: main;
 		background: rgb(175, 232, 241);
 		display: grid;
 		grid-template-columns: repeat(5,1fr);
 		grid-template-rows: repeat(7,0.5fr) 1fr;
-		// height: 100%;
-		// grid-row:auto; 
-		// border: 2px solid black;
 	
 		section {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			border: 1px solid black;
-			// padding: 5px;
-			// margin: 5px;
 			font-size: larger;
 			&:hover {
 				background: rgb(121, 180, 229);
@@ -313,16 +295,11 @@ body {
 		.doublerow {
 			grid-row: -3/-1;
 		}
-		// #bottom {
-		// 	background: rgb(175, 232, 241);
-		// }
-		
-		  
-		  /* The actual popup (appears on top) */
-		  
 	}	
 }
 
+
+/* for mobile */
 @media only screen and (max-width: 250px){
     body{
 		.gridconteiner{

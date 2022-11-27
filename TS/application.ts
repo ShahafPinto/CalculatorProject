@@ -76,6 +76,7 @@ function myElement(s:string){
 }
 
 function infoFunction():void {
+    console.log('click the info');
     let popup = document.getElementById("myPopup");
     popup.innerHTML = 'Developer\'s name: Shahaf Pinto<br>Calculator\'s version (stage): 1<br>Description: This Calculator is a device that performs arithmetic operations on numbers.\nBasic calculators can do only addition, subtraction, multiplication and division mathematical calculations.';
     popup.classList.toggle("show");
