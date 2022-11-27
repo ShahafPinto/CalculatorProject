@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "calculator-project",
   "main": "index.js",
+
   
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "http-server": "^14.1.1",
-    "node-sass": "^8.0.0"
+    "sass": "1.56.1"
   },
   "devDependencies": {
     "typescript": "^4.9.3"
