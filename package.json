@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "calculator-project",
   "main": "index.js",
-  "dependencies": {
-    "serve": "^14.0.0"
-  }
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "sass STYLE/superstyle.scss STYLE/style.css",
